@@ -1,4 +1,5 @@
 import { FormSchema } from '/@/components/Form';
+import { FileItem } from '/@/components/Upload/src/typing';
 import axios from 'axios';
 import { useGlobSetting } from '@/hooks/setting';
 import { getToken } from '@/utils/auth';
@@ -134,7 +135,7 @@ export const taskSchemas = ({ setFieldsValue, contentData }): FormSchema[] => {
             },
           });
         },
-        onChange(files) {
+        onChange(files: FileItem[]) {
           // 获取解析后的电子书数据
           if (!files || files.length < 1) {
             return;
