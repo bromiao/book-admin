@@ -54,7 +54,7 @@ export const schemas: FormSchema[] = [
     },
     componentProps: {
       onChange: (e: any) => {
-        // console.log(e);
+        console.log(e);
       },
     },
   },
@@ -67,7 +67,7 @@ export const schemas: FormSchema[] = [
     },
     componentProps: {
       onChange: (e: any) => {
-        // console.log(e);
+        console.log(e);
       },
     },
   },

@@ -255,7 +255,8 @@
             if (responseData.url) {
               fileList.push(responseData.url);
             } else {
-              fileList.push(responseData.result);
+              // fileList.push(responseData.result);
+              fileList.push(responseData.data);
             }
           }
         }

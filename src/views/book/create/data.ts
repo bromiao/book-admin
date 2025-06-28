@@ -1,8 +1,7 @@
-import { FormSchema } from '/@/components/Form';
-import { FileItem } from '/@/components/Upload/src/typing';
-import axios from 'axios';
 import { useGlobSetting } from '@/hooks/setting';
 import { getToken } from '@/utils/auth';
+import axios from 'axios';
+import { FormSchema } from '/@/components/Form';
 
 const basicOptions: LabelValueOptions = [
   {
@@ -135,42 +134,19 @@ export const taskSchemas = ({ setFieldsValue, contentData }): FormSchema[] => {
             },
           });
         },
-        onChange(files: FileItem[]) {
+        onChange(files) {
           // 获取解析后的电子书数据
           if (!files || files.length < 1) {
             return;
           }
-
-          const [fileItem] = files;
-          console.log('Upload files:', files);
-
-          // 检查 fileItem 是否存在及其必要属性
-          if (!fileItem || !fileItem.name) {
-            console.warn('FileItem or name is undefined:', fileItem);
+          console.log(1111, files);
+          const [file] = files;
+          const { originalName } = file;
+          const fileData = file.data;
+          if (!fileData) {
             return;
           }
-
-          // 从 FileItem 中获取响应数据
-          const responseData = fileItem.responseData;
-          if (!responseData || !responseData.data) {
-            console.warn('Response data is undefined or invalid:', responseData);
-            return;
-          }
-
-          const fileData = responseData.data;
-          const originalName = fileItem.name;
-
-          // 安全地解构 fileData，提供默认值
-          const {
-            title = '',
-            creator = '',
-            publisher = '',
-            language = '',
-            rootFile = '',
-            cover = '',
-            content = '',
-          } = fileData;
-
+          const { title, creator, publisher, language, rootFile, cover, content } = fileData;
           setFieldsValue({
             title,
             author: creator,
@@ -180,9 +156,8 @@ export const taskSchemas = ({ setFieldsValue, contentData }): FormSchema[] => {
             cover,
             fileName: originalName,
           });
-
           contentData.value = content;
-          console.log('Content data updated:', contentData.value);
+          console.log(contentData.value);
         },
       },
     },

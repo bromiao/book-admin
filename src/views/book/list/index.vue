@@ -15,10 +15,7 @@
         <template v-for="item in list" :key="item.id">
           <a-list-item>
             <template #extra>
-              <a
-                :href="wrapperCoverImage(item.cover)"
-                target="_blank"
-              >
+              <a :href="wrapperCoverImage(item.cover)" target="_blank">
                 <img
                   :class="`${prefixCls}__cover`"
                   alt="logo"
@@ -28,19 +25,18 @@
             </template>
             <a-list-item-meta>
               <template #description>
-
                 <div :class="`${prefixCls}__action`">
                   <span :class="`${prefixCls}__time`">{{ item.time }}</span>
                 </div>
                 <div :class="`${prefixCls}__action`">
-                  <a-button type="primary" @click="editBook(item)" style="margin-right: 20px">编辑</a-button>
+                  <a-button type="primary" @click="editBook(item)" style="margin-right: 20px"
+                    >编辑</a-button
+                  >
                   <a-button type="primary" danger @click="confirmDeleteBook(item)">删除</a-button>
                 </div>
               </template>
               <template #title>
-                <p :class="`${prefixCls}__title`">
-                  {{ item.title }}({{ item.id }})
-                </p>
+                <p :class="`${prefixCls}__title`"> {{ item.title }}({{ item.id }}) </p>
                 <div :class="`${prefixCls}__content`">
                   {{ item.content }}
                 </div>
@@ -70,7 +66,7 @@
   import { Tag, List, Pagination, Modal, message } from 'ant-design-vue';
   import { defineComponent, ref, unref } from 'vue';
   import { useRouter } from 'vue-router';
-  import Icon from '@/components/Icon/Icon.vue';
+  // import Icon from '@/components/Icon/Icon.vue';
   import { BasicForm } from '/@/components/Form/index';
   import { actions, searchList, schemas, doDeleteBook } from './data';
   import { PageWrapper } from '/@/components/Page';
@@ -155,7 +151,7 @@
 
   export default defineComponent({
     components: {
-      Icon,
+      // Icon,
       Tag,
       BasicForm,
       PageWrapper,
@@ -163,9 +159,6 @@
       [List.Item.name]: List.Item,
       AListItemMeta: List.Item.Meta,
       [Pagination.name]: Pagination,
-    },
-    mounted() {
-      handleSearchList();
     },
     setup() {
       const { push } = useRouter();
@@ -192,6 +185,9 @@
         confirmDeleteBook,
         editBook,
       };
+    },
+    mounted() {
+      handleSearchList();
     },
   });
 </script>
