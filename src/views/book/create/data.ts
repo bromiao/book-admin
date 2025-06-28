@@ -139,14 +139,37 @@ export const taskSchemas = ({ setFieldsValue, contentData }): FormSchema[] => {
           if (!files || files.length < 1) {
             return;
           }
-          const [file] = files;
-          const { originalName } = file;
-          const fileData = file.data;
-          console.log(111, fileData);
-          if (!fileData) {
+
+          const [fileItem] = files;
+          console.log('Upload files:', files);
+
+          // 检查 fileItem 是否存在及其必要属性
+          if (!fileItem || !fileItem.name) {
+            console.warn('FileItem or name is undefined:', fileItem);
             return;
           }
-          const { title, creator, publisher, language, rootFile, cover, content } = fileData;
+
+          // 从 FileItem 中获取响应数据
+          const responseData = fileItem.responseData;
+          if (!responseData || !responseData.data) {
+            console.warn('Response data is undefined or invalid:', responseData);
+            return;
+          }
+
+          const fileData = responseData.data;
+          const originalName = fileItem.name;
+
+          // 安全地解构 fileData，提供默认值
+          const {
+            title = '',
+            creator = '',
+            publisher = '',
+            language = '',
+            rootFile = '',
+            cover = '',
+            content = '',
+          } = fileData;
+
           setFieldsValue({
             title,
             author: creator,
@@ -156,8 +179,9 @@ export const taskSchemas = ({ setFieldsValue, contentData }): FormSchema[] => {
             cover,
             fileName: originalName,
           });
+
           contentData.value = content;
-          console.log(contentData.value);
+          console.log('Content data updated:', contentData.value);
         },
       },
     },
